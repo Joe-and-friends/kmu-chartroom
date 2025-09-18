@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Firebase Chatroom</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <div class="landing-page" id="landing-page">
+        <div class="landing-content">
+            <h1>Welcome to KMU Chatroom</h1>
+            <p>Connect, chat, and share instantly with friends and colleagues.<br>Register or log in to join the conversation!</p>
+            <div class="landing-actions">
+                <button id="show-register">Register</button>
+                <button id="show-login">Login</button>
+                <button id="landing-exit" class="secondary-btn">Exit</button>
+            </div>
+        </div>
+    </div>
+    <div class="auth-container" id="auth-container" style="display:none;">
+        <div id="auth-forms">
+            <form id="register-form" style="display:none;">
+                <span class="reg-icon">👤</span>
+                <h3>Register</h3>
+                <input type="text" id="reg-username" placeholder="Username" maxlength="20" required>
+                <input type="email" id="reg-email" placeholder="Email (for password reset)" maxlength="50" required>
+                <input type="password" id="reg-password" placeholder="Password (at least 6 characters)" required>
+                <label for="reg-profile-pic" class="profile-pic-label">Profile Picture (optional):</label>
+                <input type="file" id="reg-profile-pic" accept="image/*">
+                <img id="reg-profile-pic-preview" src="" alt="Profile Preview" style="display:none;max-width:80px;max-height:80px;border-radius:50%;margin-bottom:10px;" />
+                <button type="submit">Register</button>
+                <div id="reg-error" class="auth-error"></div>
+                <div class="form-actions">
+                    <button type="button" id="reg-main-menu" class="secondary-btn">Go to Main Menu</button>
+                    <button type="button" id="reg-exit" class="secondary-btn">Exit</button>
+                </div>
+            </form>
+            <form id="login-form" style="display:none;">
+                <span class="login-icon">🔑</span>
+                <h3>Login</h3>
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="text" id="login-username" placeholder="Username (optional)" maxlength="20">
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <a href="#" id="forgot-password-link" style="display:block;margin:8px 0 0 0;font-size:0.97em;color:#3570d4;text-align:right;">Forgot Password?</a>
+                <div id="login-error" class="auth-error"></div>
+                <div class="form-actions">
+                    <button type="button" id="login-main-menu" class="secondary-btn">Go to Main Menu</button>
+                    <button type="button" id="login-exit" class="secondary-btn">Exit</button>
+                </div>
+            </form>
+        </div>
+        <div id="auth-user-info" style="display:none; align-items:center; gap:10px;">
+            <label for="update-profile-pic" style="cursor:pointer;display:flex;align-items:center;gap:0;">
+                <img id="auth-user-pic" src="" alt="Profile" style="display:none;width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid #b3d1fa;vertical-align:middle;" />
+                <input type="file" id="update-profile-pic" accept="image/*" style="display:none;" />
+            </label>
+            <span id="auth-user-label"></span>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </div>
+    <div class="chat-container" style="display:none;">
+        <div class="chat-header">KMU Chatroom
+            <div class="chat-actions">
+                <input type="text" id="set-username-input" placeholder="Set username" maxlength="20" style="display:none;width:120px;margin-right:8px;" />
+                <button id="set-username-btn" class="secondary-btn" style="display:none;">Set Username</button>
+                <button id="clear-chat-btn" class="secondary-btn">Clear Chat</button>
+                <button id="chat-logout-btn" class="secondary-btn">Logout</button>
+            </div>
+        </div>
+        <div id="chat-window" class="chat-window"></div>
+        <div class="chat-input">
+            <input type="text" id="name-input" placeholder="Your name" maxlength="20">
+            <input type="text" id="recipient-input" placeholder="Recipient (optional)" maxlength="20">
+            <input type="text" id="message-input" placeholder="Type a message..." maxlength="200">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
